@@ -90,24 +90,29 @@ end
 -------------------------------------------------------------------------------
 -- oil rig
 -------------------------------------------------------------------------------
-data.raw["item"]["oil_rig"].weight = 1000 * kg
+-- since 2.1 the oil rig is in cargo-ships-oil-rig, which may not be installed
+if data.raw["item"]["oil_rig"] then
+	data.raw["item"]["oil_rig"].weight = 1000 * kg
+end
 if data.raw["mining-drill"]["oil_rig"] then
 	data.raw["mining-drill"]["oil_rig"].energy_usage = "120kW" -- was 750
 end
 local t = data.raw["technology"]["deep_sea_oil_extraction"]
-t.prerequisites = {
-	"oil-gathering",
-	"concrete",
-}
+if t then
+	t.prerequisites = {
+		"oil-gathering",
+		"concrete",
+	}
 
-t.unit = {
-	count = 300,
-	ingredients = {
-		{ "automation-science-pack", 1 },
-		{ "logistic-science-pack", 1 },
-	},
-	time = 30,
-}
+	t.unit = {
+		count = 300,
+		ingredients = {
+			{ "automation-science-pack", 1 },
+			{ "logistic-science-pack", 1 },
+		},
+		time = 30,
+	}
+end
 if data.raw["recipe"]["oil_rig"] then
 	data.raw["recipe"]["oil_rig"].ingredients = {
 		{ type = "item", name = "steel-plate", amount = 200 },
